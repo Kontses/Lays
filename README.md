@@ -27,7 +27,7 @@ This application is built with a modern frontend stack that mirrors industry-sta
 ### **Core Frontend**
 *   **React 19:** Utilizing the latest declarative UI paradigms, component state hooks (`useState`), and optimized rendering lifecycles.
 *   **TypeScript 6.0:** Full static typing across components, models, and theme parameters, ensuring codebase safety, easy refactoring, and auto-documentation.
-*   **ES6+ Javascript:** Native modern syntax (destructuring, arrow functions, template literals, async concepts).
+*   **ES6+ JavaScript:** Native modern syntax (destructuring, arrow functions, template literals, async concepts).
 
 ### **Styling & UI Library**
 *   **Material UI (MUI 9.0) & Emotion:** Customized layout elements using responsive grid configurations and system layout parameters (`sx`). Full integration of `CssBaseline` and customized palette tokens.
@@ -39,21 +39,21 @@ This application is built with a modern frontend stack that mirrors industry-sta
 
 ---
 
-## 💼 Recruitment Alignment: Deloitte Junior React Developer Profile
+## 💼 Core Competencies & Technical Standards Showcase
 
-This repository is carefully engineered to demonstrate all core competencies, bonus qualifications, and key principles listed in the **Deloitte Junior React Developer (Thessaloniki)** role specification:
+This repository is engineered to demonstrate high-level industry competencies, modern development workflows, and frontend engineering best practices:
 
-| Deloitte Job Qualification | Project Implementation & Proof-of-Skill |
+| Target Technical Competence | Project Implementation & Proof-of-Skill |
 | :--- | :--- |
-| **Proficiency in React.js & principles** | Built with fully modular, clean functional components, state hooks, and declarative rendering structures. |
-| **Experience with popular React workflows** | Dynamic component-driven flow, state synchronization between slider, header components, and external dataset. |
-| **Experience with modern styling & libraries (MUI)** | Full high-end custom implementation of **Material UI (MUI v9)**, overrides, and fluid layouts with Emotion styles. |
-| **Experience and background on UI/UX & Figma** | 1-to-1 pixel-perfect Figma translation, featuring custom typography pairing (Mona Sans), spacing scales, and custom icon assets. |
-| **Modern build pipelines and tools** | Powered by **Vite 8.0** and **TypeScript 6.0**, incorporating linting standards via ESLint. |
-| **eCommerce application patterns** | E-Commerce demo structure including pricing systems, shopping bag counters, interactive buying buttons, and catalog routing placeholders. |
-| **Testing & verification readiness** | Clean separation of concerns (presentation vs. business data in `src/data.ts`) to easily enable robust Unit, Integration, and System testing. |
-| **Performance analysis capability** | Hardware-accelerated transitions, optimized layouts, high Lighthouse audit compliance, and minimal layout shifts (CLS). |
-| **Agile & clean code best practices** | Production-ready, highly readable folder structure with descriptive naming conventions, fully documented components, and Git version control. |
+| **Advanced React.js Architecture** | Built with fully modular, clean functional components, state hooks, and declarative rendering structures. |
+| **Modern React Workflows** | Dynamic component-driven flow, state synchronization between slider, header components, and external dataset. |
+| **Material UI (MUI) Integration** | Full high-end custom implementation of **Material UI (MUI v9)**, overrides, and fluid layouts with Emotion styles. |
+| **Figma-to-Code Fidelity** | 1-to-1 pixel-perfect Figma translation, featuring custom typography pairing (Mona Sans), spacing scales, and custom icon assets. |
+| **Modern Frontend Build Pipelines** | Powered by **Vite 8.0** and **TypeScript 6.0**, incorporating linting standards via ESLint. |
+| **E-Commerce Application Design** | E-Commerce demo structure including pricing systems, shopping bag counters, interactive buying buttons, and catalog routing placeholders. |
+| **Testing & Verification Readiness** | Clean separation of concerns (presentation vs. business data in `src/data.ts`) to easily enable robust Unit, Integration, and System testing. |
+| **Performance & Audit Compliance** | Hardware-accelerated transitions, optimized layouts, high Lighthouse audit compliance, and minimal layout shifts (CLS). |
+| **Agile & Version Control Standards** | Production-ready, highly readable folder structure with descriptive naming conventions, fully documented components, and clean Git commits. |
 
 ---
 
