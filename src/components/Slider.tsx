@@ -7,6 +7,25 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { layFlavors } from '../data';
 import Header from './Header';
 
+// Προφόρτωση των ήχων "crunch" σε επίπεδο module για 100% μηδενική καθυστέρηση
+const crunchSounds = typeof window !== 'undefined' ? [
+  new Audio('/eating_1.wav'),
+  new Audio('/eating_2.wav'),
+  new Audio('/eating_3.wav'),
+  new Audio('/eating_4.wav'),
+] : [];
+
+// Δείκτης για την εναλλαγή των ήχων
+let soundIndex = 0;
+
+const playCrunchSound = () => {
+  if (crunchSounds.length === 0) return;
+  const sound = crunchSounds[soundIndex];
+  sound.currentTime = 0; // Ακαριαία επαναφορά στην αρχή
+  sound.play().catch((err) => console.log('Αποτυχία αναπαραγωγής ήχου:', err));
+  soundIndex = (soundIndex + 1) % crunchSounds.length;
+};
+
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -16,11 +35,13 @@ export default function Slider() {
   const handleNext = () => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % layFlavors.length);
+    playCrunchSound(); // Αναπαραγωγή ήχου ακαριαία
   };
 
   const handlePrev = () => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + layFlavors.length) % layFlavors.length);
+    playCrunchSound(); // Αναπαραγωγή ήχου ακαριαία
   };
 
   // Μαθηματική συνάρτηση για τον υπολογισμό του relative index της σακούλας
