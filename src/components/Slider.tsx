@@ -37,9 +37,9 @@ export default function Slider() {
       opacity: 1,
       scale: 1,
       rotate: 0,
-      transition: { 
-        duration: 0.8, 
-        type: 'spring', 
+      transition: {
+        duration: 0.8,
+        type: 'spring',
         stiffness: 100,
         damping: 20
       },
@@ -157,12 +157,12 @@ export default function Slider() {
                 >
                   Buy Now
                 </Button>
-                <Typography 
-                  component="span" 
-                  sx={{ 
-                    color: 'white', 
-                    fontSize: { xs: 24, md: 32 }, 
-                    fontWeight: 700 
+                <Typography
+                  component="span"
+                  sx={{
+                    color: 'white',
+                    fontSize: { xs: 24, md: 32 },
+                    fontWeight: 700
                   }}
                 >
                   {currentFlavor.price}
@@ -179,10 +179,10 @@ export default function Slider() {
             right: '25%', // Κεντράρισμα του Eclipse 7 στο δεξί μέρος
             top: '50%',
             transform: 'translate(50%, -50%)',
-            width: { xs: '40vh', md: '50vh' },
-            height: { xs: '40vh', md: '50vh' },
-            maxWidth: '640px',
-            maxHeight: '640px',
+            width: { xs: '50vh', md: '60vh' },
+            height: { xs: '50vh', md: '60vh' },
+            maxWidth: '720px',
+            maxHeight: '720px',
             minWidth: '280px',
             minHeight: '280px',
             display: 'flex',
@@ -228,22 +228,22 @@ export default function Slider() {
           <Box
             sx={{
               position: 'absolute',
-              right: '-80%',
-              width: { xs: '25vh', md: '32vh' },
-              height: { xs: '25vh', md: '32vh' },
-              maxWidth: '400px',
-              maxHeight: '400px',
+              right: '-60%',
+              width: { xs: '30vh', md: '38vh' },
+              height: { xs: '30vh', md: '38vh' },
+              maxWidth: '480px',
+              maxHeight: '480px',
               minWidth: '180px',
               minHeight: '180px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               opacity: 0.6,
-              filter: 'blur(8px)',
+              filter: 'blur(4px)',
               zIndex: 5,
             }}
           >
-             <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait">
               <motion.img
                 key={nextFlavor.id}
                 src={nextFlavor.image}
@@ -279,34 +279,34 @@ export default function Slider() {
             backdropFilter: 'blur(10px)',
           }}
         >
-          <IconButton 
-            onClick={handlePrev} 
+          <IconButton
+            onClick={handlePrev}
             aria-label="Προηγούμενη γεύση"
-            sx={{ 
-              color: 'white', 
-              borderRadius: '50px 0 0 50px', 
-              px: 3, 
+            sx={{
+              color: 'white',
+              borderRadius: '50px 0 0 50px',
+              px: 3,
               borderRight: '1px solid rgba(255,255,255,0.3)',
               '&:hover': { background: 'rgba(255,255,255,0.2)' }
             }}
           >
             <ArrowBackIcon />
           </IconButton>
-          <IconButton 
-            onClick={handleNext} 
+          <IconButton
+            onClick={handleNext}
             aria-label="Επόμενη γεύση"
-            sx={{ 
-              color: 'white', 
-              borderRadius: '0 50px 50px 0', 
+            sx={{
+              color: 'white',
+              borderRadius: '0 50px 50px 0',
               px: 3,
-              '&:hover': { background: 'rgba(255,255,255,0.2)' } 
+              '&:hover': { background: 'rgba(255,255,255,0.2)' }
             }}
           >
             <ArrowForwardIcon />
           </IconButton>
         </Box>
 
-        <Box sx={{ position: 'absolute', right: { xs: 4, md: 12 }, display: 'flex', alignItems: 'baseline', color: 'white' }}>
+        <Box sx={{ position: 'absolute', right: { xs: '32px', md: '64px', lg: '96px' }, display: 'flex', alignItems: 'baseline', color: 'white' }}>
           <Typography sx={{ fontSize: 48, fontWeight: 700 }}>0{currentIndex + 1}</Typography>
           <Typography sx={{ fontSize: 24, ml: 1, opacity: 0.6 }}>/0{layFlavors.length}</Typography>
         </Box>
