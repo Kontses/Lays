@@ -236,8 +236,8 @@ export default function Slider() {
                 // 20% White Stroke με 5px Outside χρησιμοποιώντας box-shadow spread
                 boxShadow: '0 0 0 5px rgba(255, 255, 255, 0.2)',
                 transition: 'all 0.3s ease',
-                '&:hover': { 
-                  bgcolor: 'rgba(255, 255, 255, 0.9)', 
+                '&:hover': {
+                  bgcolor: 'rgba(255, 255, 255, 0.9)',
                   boxShadow: '0 0 0 5px rgba(255, 255, 255, 0.35), 0 6px 18px rgba(255, 255, 255, 0.15)',
                   '& .MuiButton-endIcon': {
                     transform: 'translateX(4px)',
@@ -298,7 +298,7 @@ export default function Slider() {
           {/* 3D Carousel των σακουλών Lay's */}
           {layFlavors.map((flavor, index) => {
             const relIndex = getRelativeIndex(index);
-            
+
             // Παράμετροι animations για 3D βάθος
             let xValue = '0%';
             let scaleValue = 0.3;
@@ -306,7 +306,7 @@ export default function Slider() {
             let blurValue = '0px';
             let opacityValue = 0;
             let zIndexValue = 1;
-            
+
             if (relIndex === 0) {
               xValue = '0%';
               scaleValue = 1.0;
@@ -350,9 +350,9 @@ export default function Slider() {
                 }}
                 transition={{
                   type: 'spring',
-                  stiffness: 90,
-                  damping: 18,
-                  mass: 1,
+                  stiffness: 100, // Ελαφρώς πιο μαλακό ελατήριο
+                  damping: 14,    // Αυξημένη τριβή για πιο ελεγχόμενο και διακριτικό bounce
+                  mass: 1.0,      // Κανονική μάζα για κομψή αδράνεια χωρίς υπερβολές
                 }}
                 style={{
                   position: 'absolute',
@@ -466,10 +466,10 @@ export default function Slider() {
                   opacity: { duration: 0.2 },
                 }}
               >
-                <Typography 
-                  sx={{ 
-                    fontFamily: '"Baloo Bhai 2", sans-serif', 
-                    fontSize: { xs: 32, md: 40, xl: 44 }, 
+                <Typography
+                  sx={{
+                    fontFamily: '"Baloo Bhai 2", sans-serif',
+                    fontSize: { xs: 32, md: 40, xl: 44 },
                     fontWeight: 700,
                     lineHeight: 1,
                   }}
