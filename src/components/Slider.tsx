@@ -137,14 +137,27 @@ export default function Slider() {
         sx={{
           flex: 1,
           display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' }, // Κατακόρυφη στοίχιση στο κινητό, οριζόντια στο desktop
           alignItems: 'center',
-          px: { xs: 3, md: 6, lg: 9, xl: 10 },
+          justifyContent: { xs: 'center', md: 'flex-start' }, // Κεντράρισμα στο κινητό
+          px: { xs: 2.5, sm: 4, md: 6, lg: 9, xl: 10 }, // Προσαρμοσμένο padding για κινητά
+          py: { xs: 1.5, sm: 3, md: 0 }, // Μειωμένο padding για περισσότερο ελεύθερο κάθετο χώρο
           position: 'relative',
           zIndex: 5,
+          gap: { xs: 2, sm: 3, md: 0 }, // Βελτιστοποιημένη απόσταση στο κινητό για περισσότερο χώρο
         }}
       >
         {/* Left Side: Content */}
-        <Box sx={{ flex: '0 0 45%', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Box 
+          sx={{ 
+            flex: { xs: 'none', md: '0 0 45%' }, 
+            width: { xs: '100%', md: 'auto' },
+            zIndex: 10, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: { xs: 'center', md: 'flex-start' }, // Κεντράρισμα στοιχείων στο κινητό
+          }}
+        >
           {/* Badge: 100% Σταθερό και Αμετάβλητο */}
           <Box
             sx={{
@@ -154,7 +167,7 @@ export default function Slider() {
               borderRadius: '100px',
               px: { xs: 2, xl: 2.5 },
               py: { xs: 0.5, xl: 0.75 },
-              mb: { xs: 1.5, md: 2, xl: 2.5 },
+              mb: { xs: 0.75, sm: 1.5, md: 2, xl: 2.5 }, // Μικρότερο margin για εξοικονόμηση χώρου στο κινητό
             }}
           >
             <Typography sx={{ color: 'white', fontWeight: 600, fontSize: { xs: 11, xl: 12 }, textTransform: 'uppercase', letterSpacing: 1 }}>
@@ -163,7 +176,15 @@ export default function Slider() {
           </Box>
 
           {/* Τίτλος: Ανεξάρτητο Sliding Animation με σταθερό minHeight για αποφυγή layout shifting */}
-          <Box sx={{ width: '100%', minHeight: { xs: '76px', sm: '100px', md: '124px', lg: '146px', xl: '160px' }, display: 'flex', alignItems: 'center' }}>
+          <Box 
+            sx={{ 
+              width: '100%', 
+              minHeight: { xs: 'auto', sm: '60px', md: '124px', lg: '146px', xl: '160px' }, // auto στο κινητό για βέλτιστο ύψος
+              display: 'flex', 
+              alignItems: 'center',
+              justifyContent: { xs: 'center', md: 'flex-start' } // Κεντράρισμα τίτλου στο κινητό
+            }}
+          >
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={currentFlavor.id}
@@ -179,10 +200,11 @@ export default function Slider() {
                   sx={{
                     fontFamily: '"Mona Sans", "Inter", sans-serif',
                     color: 'white',
-                    fontSize: { xs: 32, sm: 42, md: 52, lg: 62, xl: 68 }, // Μειωμένο μέγεθος τίτλου
+                    fontSize: { xs: 30, sm: 40, md: 52, lg: 62, xl: 68 }, // Μεγαλύτερος και πιο ξεκάθαρος τίτλος στο κινητό
                     fontWeight: 800,
                     lineHeight: 1.1,
                     letterSpacing: '-0.03em',
+                    textAlign: { xs: 'center', md: 'left' } // Κεντράρισμα κειμένου στο κινητό
                   }}
                 >
                   {currentFlavor.title}
@@ -192,7 +214,16 @@ export default function Slider() {
           </Box>
 
           {/* Περιγραφή: Ανεξάρτητο Sliding Animation με σταθερό minHeight */}
-          <Box sx={{ width: '100%', minHeight: { xs: '66px', sm: '76px', md: '86px', xl: '96px' }, mb: { xs: 2.5, md: 3, xl: 4 }, display: 'flex', alignItems: 'center' }}>
+          <Box 
+            sx={{ 
+              width: '100%', 
+              minHeight: { xs: 'auto', sm: '76px', md: '86px', xl: '96px' }, // auto στο κινητό για βέλτιστο ύψος
+              mb: { xs: 1.5, sm: 2.5, md: 3, xl: 4 }, 
+              display: 'flex', 
+              alignItems: 'center',
+              justifyContent: { xs: 'center', md: 'flex-start' } // Κεντράρισμα περιγραφής στο κινητό
+            }}
+          >
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={currentFlavor.id}
@@ -207,10 +238,11 @@ export default function Slider() {
                   sx={{
                     fontFamily: '"Inter", sans-serif',
                     color: 'white',
-                    fontSize: { xs: 13, sm: 14, md: 15, xl: 16.5 }, // Μειωμένο μέγεθος περιγραφής
+                    fontSize: { xs: 13, sm: 14.5, md: 15, xl: 16.5 }, // Μεγαλύτερη και πιο ξεκάθαρη περιγραφή στο κινητό
                     maxWidth: '440px',
                     opacity: 0.9,
                     lineHeight: 1.6,
+                    textAlign: { xs: 'center', md: 'left' } // Κεντράρισμα κειμένου στο κινητό
                   }}
                 >
                   {currentFlavor.description}
@@ -220,16 +252,25 @@ export default function Slider() {
           </Box>
 
           {/* Action Area (Buy Now & Price): 100% Σταθερό και Αμετάβλητο */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: { xs: 'center', md: 'flex-start' }, // Κεντράρισμα στο κινητό
+              gap: { xs: 3, md: 4 },
+              width: '100%',
+              mt: { xs: 0.5, md: 0 }
+            }}
+          >
             <Button
               variant="contained"
               endIcon={<ArrowRightAltIcon />}
               sx={{
                 bgcolor: 'white',
                 color: '#121212',
-                px: { xs: '18px', md: '22px', xl: '26px' }, // Αναλογικά scaled-down padding
-                py: { xs: '10px', md: '12px', xl: '14px' }, // Αναλογικά scaled-down padding
-                fontSize: { xs: 13, md: 14, lg: 15, xl: 16 }, // Μειωμένο μέγεθος γραμματοσειράς
+                px: { xs: '18px', sm: '20px', md: '22px', xl: '26px' }, // Μεγαλύτερο padding για καθαρότερη εμφάνιση στο κινητό
+                py: { xs: '9px', sm: '11px', md: '12px', xl: '14px' }, // Μεγαλύτερο padding
+                fontSize: { xs: 12.5, sm: 13.5, md: 14, lg: 15, xl: 16 }, // Μεγαλύτερη γραμματοσειρά κουμπιού στο κινητό
                 fontWeight: 600,
                 borderRadius: '100px',
                 textTransform: 'uppercase',
@@ -255,7 +296,7 @@ export default function Slider() {
               sx={{
                 fontFamily: '"Baloo Bhai 2", sans-serif',
                 color: 'white',
-                fontSize: { xs: 28, md: 34, lg: 40, xl: 44 }, // Μειωμένο μέγεθος τιμής
+                fontSize: { xs: 26, sm: 30, md: 34, lg: 40, xl: 44 }, // Μεγαλύτερη και πιο ξεκάθαρη τιμή στο κινητό
                 fontWeight: 600,
                 lineHeight: 1,
               }}
@@ -268,19 +309,21 @@ export default function Slider() {
         {/* Right Side: Visuals (The 3D Deck Carousel Container) */}
         <Box
           sx={{
-            position: 'absolute',
-            right: '25%',
-            top: '50%',
-            transform: 'translate(50%, -50%)',
-            width: { xs: '38vh', sm: '44vh', md: '48vh', lg: '52vh', xl: '55vh' }, // Μειωμένο μέγεθος σακούλας (~10% μικρότερο)
-            height: { xs: '38vh', sm: '44vh', md: '48vh', lg: '52vh', xl: '55vh' },
+            position: { xs: 'relative', md: 'absolute' }, // Στοίχιση relative στο κινητό, absolute στο desktop
+            right: { xs: 'auto', md: '25%' },
+            top: { xs: 'auto', md: '50%' },
+            transform: { xs: 'none', md: 'translate(50%, -50%)' }, // Απενεργοποίηση transform στο κινητό
+            width: { xs: '26vh', sm: '32vh', md: '48vh', lg: '52vh', xl: '55vh' }, // Μεγαλύτερη σακούλα για περισσότερο «αέρα» και παρουσία
+            height: { xs: '26vh', sm: '32vh', md: '48vh', lg: '52vh', xl: '55vh' },
             maxWidth: '680px',
             maxHeight: '680px',
-            minWidth: '260px',
-            minHeight: '260px',
+            minWidth: { xs: '180px', md: '260px' }, // Αυξημένο ελάχιστο πλάτος στο κινητό
+            minHeight: { xs: '180px', md: '260px' },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            mt: { xs: 1.5, sm: 2, md: 0 }, // Ελαφρώς περισσότερος «αέρας» γύρω από τη σακούλα
+            mb: { xs: 1.5, sm: 2, md: 0 },
           }}
         >
           {/* Ellipse 7 (The White Backdrop Glow) */}
@@ -383,13 +426,14 @@ export default function Slider() {
       <Box
         sx={{
           width: '100%',
-          px: { xs: 3, md: 6, lg: 9, xl: 10 }, // Ευθυγραμμισμένο με το Header
-          pb: { xs: 3, md: 4, xl: 5 }, // Μειωμένο κάτω κενό
+          px: { xs: 2.5, sm: 4, md: 6, lg: 9, xl: 10 }, // Ευθυγραμμισμένο με το Header
+          pb: { xs: 2, md: 4, xl: 5 }, // Μειωμένο κάτω κενό στο κινητό
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
           zIndex: 10,
+          mt: 'auto', // Σπρώξιμο στο κάτω μέρος για τέλειο responsiveness
         }}
       >
         <Box
