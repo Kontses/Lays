@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -7,30 +7,40 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { layFlavors } from '../data';
 import Header from './Header';
 
-// Προφόρτωση των ήχων "crunch" σε επίπεδο module για 100% μηδενική καθυστέρηση
-const crunchSounds = typeof window !== 'undefined' ? [
-  new Audio('/eating_1.wav'),
-  new Audio('/eating_2.wav'),
-  new Audio('/eating_3.wav'),
-  new Audio('/eating_4.wav'),
-] : [];
-
-// Δείκτης για την εναλλαγή των ήχων
-let soundIndex = 0;
-
-const playCrunchSound = () => {
-  if (crunchSounds.length === 0) return;
-  const sound = crunchSounds[soundIndex];
-  sound.currentTime = 0; // Ακαριαία επαναφορά στην αρχή
-  sound.play().catch((err) => console.log('Αποτυχία αναπαραγωγής ήχου:', err));
-  soundIndex = (soundIndex + 1) % crunchSounds.length;
-};
-
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
   const currentFlavor = layFlavors[currentIndex];
+
+  // useRef για τους ήχους ώστε να μην εμποδίζονται από HMR και browser policies
+  const crunchSoundsRef = useRef<HTMLAudioElement[]>([]);
+  const soundIndexRef = useRef(0);
+
+  useEffect(() => {
+    // Δημιουργία των Audio αντικειμένων μόνο στο client-side mount
+    crunchSoundsRef.current = [
+      new Audio('/eating_1.wav'),
+      new Audio('/eating_2.wav'),
+      new Audio('/eating_3.wav'),
+      new Audio('/eating_4.wav'),
+    ];
+    // Αναγκαστική προφόρτωση
+    crunchSoundsRef.current.forEach((sound) => {
+      sound.load();
+    });
+  }, []);
+
+  const playCrunchSound = () => {
+    const sounds = crunchSoundsRef.current;
+    if (sounds.length === 0) return;
+    const sound = sounds[soundIndexRef.current];
+    if (sound) {
+      sound.currentTime = 0; // Ακαριαία επαναφορά στην αρχή
+      sound.play().catch((err) => console.log('Αποτυχία αναπαραγωγής ήχου:', err));
+    }
+    soundIndexRef.current = (soundIndexRef.current + 1) % sounds.length;
+  };
 
   const handleNext = () => {
     setDirection(1);
