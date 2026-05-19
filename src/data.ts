@@ -6,7 +6,7 @@ export const layFlavors = [
     price: "1,50 €",
     // Gradients από το Figma Page 1
     gradient: "linear-gradient(131.6deg, #FF8D28 9.78%, #FF383C 91.67%)",
-    image: "/image 1.png", // Κόκκινη / Κλασική σακούλα
+    image: "/image 1.webp", // Κόκκινη / Κλασική σακούλα
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const layFlavors = [
     price: "1,50 €",
     // Gradients από το Figma Page 2
     gradient: "linear-gradient(131.6deg, #FFCC00 9.78%, #028044 91.67%)",
-    image: "/image 2.png", // Πράσινη σακούλα ρίγανης
+    image: "/image 2.webp", // Πράσινη σακούλα ρίγανης
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ export const layFlavors = [
     price: "1,50 €",
     // Gradients από το Figma Page 3
     gradient: "linear-gradient(131.6deg, #B1DA2B 9.78%, #D60800 91.67%)",
-    image: "/image 3.png", // Γαλάζια/Πράσινη σακούλα αλάτι & ξύδι
+    image: "/image 3.webp", // Γαλάζια/Πράσινη σακούλα αλάτι & ξύδι
   },
   {
     id: 4,
@@ -33,6 +33,6 @@ export const layFlavors = [
     price: "1,50 €",
     // Gradients από το Figma Page 4 (3 stop points)
     gradient: "linear-gradient(131.6deg, #E9611B 9.78%, #FF383C 51.74%, #83378A 91.67%)",
-    image: "/image 4.png", // Μωβ σακούλα Barbeque
+    image: "/image 4.webp", // Μωβ σακούλα Barbeque
   }
 ];

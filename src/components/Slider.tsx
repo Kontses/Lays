@@ -692,6 +692,7 @@ export default function Slider() {
 
               {/* Τίτλος */}
               <Typography
+                component="h2"
                 sx={{
                   fontFamily: '"Mona Sans", sans-serif',
                   fontSize: { xs: 18, sm: 20 },
