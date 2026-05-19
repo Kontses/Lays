@@ -34,6 +34,7 @@ interface HeaderProps {
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onSelectFlavor: (index: number) => void;
+  onMenuItemClick: (item: string) => void;
 }
 
 export default function Header({
@@ -45,6 +46,7 @@ export default function Header({
   isFavorite,
   onToggleFavorite,
   onSelectFlavor,
+  onMenuItemClick,
 }: HeaderProps) {
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -179,6 +181,11 @@ export default function Header({
             {['PRODUCTS', 'ABOUT', 'WHERE TO BUY', 'CONTACT'].map((item, idx) => (
               <Box
                 key={item}
+                onClick={() => {
+                  if (idx !== 0) {
+                    onMenuItemClick(item);
+                  }
+                }}
                 sx={{
                   backgroundColor: idx === 0 ? 'white' : 'transparent',
                   borderRadius: '100px',

@@ -18,6 +18,12 @@ export default function Slider() {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [hireMeModalItem, setHireMeModalItem] = useState<string | null>(null);
+
+  const handleMenuItemClick = (item: string) => {
+    setHireMeModalItem(item);
+    playCrunchSound(); // crunch feedback για άνοιγμα του modal
+  };
 
   const toggleFavorite = () => {
     setFavorites((prev) => ({
@@ -191,6 +197,7 @@ export default function Slider() {
         isFavorite={!!favorites[currentFlavor.id]}
         onToggleFavorite={toggleFavorite}
         onSelectFlavor={handleSelectFlavor}
+        onMenuItemClick={handleMenuItemClick}
       />
 
       <Box
@@ -209,13 +216,13 @@ export default function Slider() {
         }}
       >
         {/* Left Side: Content */}
-        <Box 
-          sx={{ 
-            flex: { xs: 'none', md: '0 0 45%' }, 
+        <Box
+          sx={{
+            flex: { xs: 'none', md: '0 0 45%' },
             width: { xs: '100%', md: 'auto' },
-            zIndex: 10, 
-            display: 'flex', 
-            flexDirection: 'column', 
+            zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
             alignItems: { xs: 'center', md: 'flex-start' }, // Κεντράρισμα στοιχείων στο κινητό
           }}
         >
@@ -237,11 +244,11 @@ export default function Slider() {
           </Box>
 
           {/* Τίτλος: Ανεξάρτητο Sliding Animation με σταθερό minHeight για αποφυγή layout shifting */}
-          <Box 
-            sx={{ 
-              width: '100%', 
+          <Box
+            sx={{
+              width: '100%',
               minHeight: { xs: 'auto', sm: '60px', md: '124px', lg: '146px', xl: '160px' }, // auto στο κινητό για βέλτιστο ύψος
-              display: 'flex', 
+              display: 'flex',
               alignItems: 'center',
               justifyContent: { xs: 'center', md: 'flex-start' } // Κεντράρισμα τίτλου στο κινητό
             }}
@@ -275,12 +282,12 @@ export default function Slider() {
           </Box>
 
           {/* Περιγραφή: Ανεξάρτητο Sliding Animation με σταθερό minHeight */}
-          <Box 
-            sx={{ 
-              width: '100%', 
+          <Box
+            sx={{
+              width: '100%',
               minHeight: { xs: 'auto', sm: '76px', md: '86px', xl: '96px' }, // auto στο κινητό για βέλτιστο ύψος
-              mb: { xs: 1.5, sm: 2.5, md: 3, xl: 4 }, 
-              display: 'flex', 
+              mb: { xs: 1.5, sm: 2.5, md: 3, xl: 4 },
+              display: 'flex',
               alignItems: 'center',
               justifyContent: { xs: 'center', md: 'flex-start' } // Κεντράρισμα περιγραφής στο κινητό
             }}
@@ -313,10 +320,10 @@ export default function Slider() {
           </Box>
 
           {/* Action Area (Buy Now & Price): 100% Σταθερό και Αμετάβλητο */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: { xs: 'center', md: 'flex-start' }, // Κεντράρισμα στο κινητό
               gap: { xs: 3, md: 4 },
               width: '100%',
@@ -588,6 +595,222 @@ export default function Slider() {
           <Typography sx={{ fontFamily: '"Baloo Bhai 2", sans-serif', fontSize: { xs: 16, md: 20, xl: 22 }, ml: 1, opacity: 0.6 }}>/0{layFlavors.length}</Typography>
         </Box>
       </Box>
+
+      {/* "Hire Me" Funny Glassmorphic Modal */}
+      <AnimatePresence>
+        {hireMeModalItem && (
+          <Box
+            onClick={() => {
+              setHireMeModalItem(null);
+              playCrunchSound();
+            }}
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              backdropFilter: 'blur(12px)',
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              p: 2,
+            }}
+          >
+            <Box
+              component={motion.div}
+              initial={{ scale: 0.85, opacity: 0, y: 40 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.85, opacity: 0, y: 40 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+              onClick={(e) => e.stopPropagation()}
+              sx={{
+                width: '100%',
+                maxWidth: '400px',
+                borderRadius: '24px',
+                padding: { xs: '32px 24px', sm: '36px 32px' },
+                textAlign: 'center',
+                background: 'rgba(255, 255, 255, 0.18)',
+                backdropFilter: 'blur(30px)',
+                WebkitBackdropFilter: 'blur(30px)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 30px 70px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.35)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 3,
+                position: 'relative',
+                overflow: 'hidden',
+                color: 'white',
+              }}
+            >
+              {/* Close Button at top right */}
+              <IconButton
+                onClick={() => {
+                  playCrunchSound();
+                  setHireMeModalItem(null);
+                }}
+                sx={{
+                  position: 'absolute',
+                  top: 16,
+                  right: 16,
+                  color: 'rgba(255, 255, 255, 0.4)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  zIndex: 10,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    color: 'white',
+                    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    transform: 'scale(1.08)',
+                  },
+                }}
+              >
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+                  <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                </svg>
+              </IconButton>
+
+              {/* Διακοσμητικό soft white glow στο background του modal */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '120%',
+                  height: '120%',
+                  background: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%)',
+                  filter: 'blur(40px)',
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                }}
+              />
+
+              {/* Τίτλος */}
+              <Typography
+                sx={{
+                  fontFamily: '"Mona Sans", sans-serif',
+                  fontSize: { xs: 18, sm: 20 },
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  lineHeight: 1.2,
+                  zIndex: 1,
+                  color: 'white',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Work In Progress
+              </Typography>
+
+              {/* Περιγραφή */}
+              <Typography
+                sx={{
+                  fontFamily: '"Mona Sans", sans-serif',
+                  fontSize: { xs: 13.5, sm: 14.5 },
+                  fontWeight: 400,
+                  lineHeight: 1.6,
+                  color: 'rgba(255, 255, 255, 0.92)',
+                  zIndex: 1,
+                  px: { xs: 1, sm: 2 },
+                }}
+              >
+                Η ενότητα <strong style={{ color: 'white', fontWeight: 600 }}>{hireMeModalItem}</strong> δεν είναι ακόμα διαθέσιμη...
+                <br />
+                <br />
+                Αν θα ήθελες να δεις πλήρως υλοποιημένη την δική σου ιστοσελίδα ή εφαρμογή, επικοινώνησε μαζί μου!
+              </Typography>
+
+              {/* Action Buttons */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: 1.5,
+                  zIndex: 1,
+                  mt: 1,
+                }}
+              >
+                <Button
+                  component="a"
+                  href="mailto:vassilis.kontses@gmail.com?subject=Frontend Developer Opportunity - Lays Demo Site"
+                  onClick={() => {
+                    playCrunchSound();
+                    setHireMeModalItem(null);
+                  }}
+                  sx={{
+                    fontFamily: '"Mona Sans", sans-serif',
+                    fontWeight: 600,
+                    fontSize: { xs: 13, sm: 14 },
+                    color: '#121212',
+                    backgroundColor: 'white',
+                    borderRadius: '100px',
+                    py: 1.2,
+                    textTransform: 'uppercase',
+                    boxShadow: '0 0 0 5px rgba(255, 255, 255, 0.15)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1.2,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      boxShadow: '0 0 0 5px rgba(255, 255, 255, 0.25), 0 6px 18px rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-1px)',
+                    },
+                  }}
+                >
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 256 256" style={{ flexShrink: 0 }}>
+                    <path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path>
+                  </svg>
+                  Contact Me
+                </Button>
+
+                <Button
+                  component="a"
+                  href="https://www.linkedin.com/in/kontses/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    playCrunchSound();
+                    setHireMeModalItem(null);
+                  }}
+                  sx={{
+                    fontFamily: '"Mona Sans", sans-serif',
+                    fontWeight: 600,
+                    fontSize: { xs: 13, sm: 14 },
+                    color: 'white',
+                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '100px',
+                    py: 1.2,
+                    textTransform: 'uppercase',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1.2,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                      borderColor: 'rgba(255, 255, 255, 0.35)',
+                      transform: 'translateY(-1px)',
+                    },
+                  }}
+                >
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 256 256" style={{ flexShrink: 0 }}>
+                    <path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path>
+                  </svg>
+                  LinkedIn
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </AnimatePresence>
     </Box>
   );
 }
