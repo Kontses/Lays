@@ -13,6 +13,32 @@ export default function Slider() {
 
   const currentFlavor = layFlavors[currentIndex];
 
+  // Νέα States για Cart, Favorites και Search
+  const [cartCount, setCartCount] = useState(0);
+  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const toggleFavorite = () => {
+    setFavorites((prev) => ({
+      ...prev,
+      [currentFlavor.id]: !prev[currentFlavor.id],
+    }));
+  };
+
+  const handleBuyNow = () => {
+    setCartCount((prev) => prev + 1);
+    playCrunchSound(); // Satisfying crunch feedback κατά την προσθήκη στο καλάθι
+  };
+
+  // Επιλογή γεύσης από την μπάρα αναζήτησης με smooth sliding μετάβαση
+  const handleSelectFlavor = (index: number) => {
+    if (index === currentIndex) return;
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+    playCrunchSound(); // crunch feedback για ικανοποιητική αίσθηση μετάβασης
+  };
+
   // useRef για τους ήχους ώστε να μην εμποδίζονται από HMR και browser policies
   const crunchSoundsRef = useRef<HTMLAudioElement[]>([]);
   const soundIndexRef = useRef(0);
@@ -129,8 +155,43 @@ export default function Slider() {
         </AnimatePresence>
       </Box>
 
+      {/* Premium Backdrop Blur Overlay όταν η Αναζήτηση είναι ανοιχτή */}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            onClick={() => {
+              setIsSearchOpen(false);
+              setSearchQuery('');
+            }}
+            sx={{
+              position: 'fixed',
+              inset: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.35)', // Απαλό dimming
+              backdropFilter: 'blur(12px)', // Ισχυρό premium blur για βελτιστοποίηση αναγνωσιμότητας
+              WebkitBackdropFilter: 'blur(12px)',
+              zIndex: 90, // Πάνω από το main content αλλά κάτω από το Header
+              cursor: 'pointer',
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
-      <Header />
+      <Header
+        cartCount={cartCount}
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isFavorite={!!favorites[currentFlavor.id]}
+        onToggleFavorite={toggleFavorite}
+        onSelectFlavor={handleSelectFlavor}
+      />
 
       <Box
         component="main"
@@ -265,6 +326,7 @@ export default function Slider() {
             <Button
               variant="contained"
               endIcon={<ArrowRightAltIcon />}
+              onClick={handleBuyNow}
               sx={{
                 bgcolor: 'white',
                 color: '#121212',
