@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -22,7 +22,6 @@ export default function Slider() {
 
   const handleMenuItemClick = (item: string) => {
     setHireMeModalItem(item);
-    playCrunchSound(); // crunch feedback για άνοιγμα του modal
   };
 
   const toggleFavorite = () => {
@@ -34,7 +33,6 @@ export default function Slider() {
 
   const handleBuyNow = () => {
     setCartCount((prev) => prev + 1);
-    playCrunchSound(); // Satisfying crunch feedback κατά την προσθήκη στο καλάθι
   };
 
   // Επιλογή γεύσης από την μπάρα αναζήτησης με smooth sliding μετάβαση
@@ -42,48 +40,16 @@ export default function Slider() {
     if (index === currentIndex) return;
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
-    playCrunchSound(); // crunch feedback για ικανοποιητική αίσθηση μετάβασης
-  };
-
-  // useRef για τους ήχους ώστε να μην εμποδίζονται από HMR και browser policies
-  const crunchSoundsRef = useRef<HTMLAudioElement[]>([]);
-  const soundIndexRef = useRef(0);
-
-  useEffect(() => {
-    // Δημιουργία των Audio αντικειμένων μόνο στο client-side mount
-    crunchSoundsRef.current = [
-      new Audio('/eating_1.wav'),
-      new Audio('/eating_2.wav'),
-      new Audio('/eating_3.wav'),
-      new Audio('/eating_4.wav'),
-    ];
-    // Αναγκαστική προφόρτωση
-    crunchSoundsRef.current.forEach((sound) => {
-      sound.load();
-    });
-  }, []);
-
-  const playCrunchSound = () => {
-    const sounds = crunchSoundsRef.current;
-    if (sounds.length === 0) return;
-    const sound = sounds[soundIndexRef.current];
-    if (sound) {
-      sound.currentTime = 0; // Ακαριαία επαναφορά στην αρχή
-      sound.play().catch((err) => console.log('Αποτυχία αναπαραγωγής ήχου:', err));
-    }
-    soundIndexRef.current = (soundIndexRef.current + 1) % sounds.length;
   };
 
   const handleNext = () => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % layFlavors.length);
-    playCrunchSound(); // Αναπαραγωγή ήχου ακαριαία
   };
 
   const handlePrev = () => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + layFlavors.length) % layFlavors.length);
-    playCrunchSound(); // Αναπαραγωγή ήχου ακαριαία
   };
 
   // Μαθηματική συνάρτηση για τον υπολογισμό του relative index της σακούλας
@@ -602,7 +568,6 @@ export default function Slider() {
           <Box
             onClick={() => {
               setHireMeModalItem(null);
-              playCrunchSound();
             }}
             sx={{
               position: 'fixed',
@@ -649,7 +614,6 @@ export default function Slider() {
               {/* Close Button at top right */}
               <IconButton
                 onClick={() => {
-                  playCrunchSound();
                   setHireMeModalItem(null);
                 }}
                 sx={{
@@ -740,7 +704,6 @@ export default function Slider() {
                   component="a"
                   href="mailto:vassilis.kontses@gmail.com?subject=Frontend Developer Opportunity - Lays Demo Site"
                   onClick={() => {
-                    playCrunchSound();
                     setHireMeModalItem(null);
                   }}
                   sx={{
@@ -777,7 +740,6 @@ export default function Slider() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
-                    playCrunchSound();
                     setHireMeModalItem(null);
                   }}
                   sx={{
